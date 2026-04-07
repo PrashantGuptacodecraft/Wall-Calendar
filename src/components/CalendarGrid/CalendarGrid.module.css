@@ -1,0 +1,116 @@
+.calendarGridContainer {
+  flex: 2.5;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.navButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.navButton:hover {
+  background-color: var(--accent-light);
+  color: var(--accent-color);
+}
+
+.daysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.daysHeader span:nth-child(6),
+.daysHeader span:nth-child(7) {
+  color: var(--accent-color);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 4px;
+}
+
+.dateCellWrapper {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dateCellBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  transition: all 0.2s;
+  z-index: 2;
+  position: relative;
+}
+
+/* Weekend specific styling (Sat/Sun colored blue) */
+.isWeekend .dateCellBtn {
+  color: var(--accent-color);
+}
+
+.isPrevNextMonth .dateCellBtn {
+  color: #e2e8f0;
+  font-weight: 500;
+}
+
+.dateCellBtn:hover {
+  background-color: var(--bg-main);
+}
+
+.isToday .dateCellBtn {
+  color: white;
+  background-color: var(--text-main);
+}
+
+.rangeRibbon {
+  position: absolute;
+  top: 10%; bottom: 0%; left: 0; right: 0;
+  background-color: var(--accent-light);
+  z-index: 1;
+  height: 80%;
+  margin: auto 0;
+}
+
+.rangeStartRibbon { left: 10%; border-top-left-radius: 20px; border-bottom-left-radius: 20px; }
+.rangeEndRibbon { right: 10%; border-top-right-radius: 20px; border-bottom-right-radius: 20px; }
+
+.isSelected .dateCellBtn {
+  background-color: var(--accent-color);
+  color: white !important;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.isSelected .dateCellBtn:hover {
+  background-color: var(--accent-color);
+}
