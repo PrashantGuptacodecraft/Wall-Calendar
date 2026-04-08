@@ -1,43 +1,52 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export function useCalendarLogic() {
+  // basic state stuff
   const [currentDate, setCurrentDate] = useState(new Date());
   
-  // Selection ranges
+  // start and end date for ranges
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   
-  // Hover state for range preview
+  // hover effect state
   const [hoverDate, setHoverDate] = useState(null);
 
-  const prevMonth = useCallback(() => {
-    setCurrentDate(prev => {
-      const prevMonth = new Date(prev.getFullYear(), prev.getMonth() - 1, 1);
-      return prevMonth;
-    });
-  }, []);
+  // flipping animation state!
+  const [isFlipping, setIsFlipping] = useState(false);
 
-  const nextMonth = useCallback(() => {
-    setCurrentDate(prev => {
-      const nextMonth = new Date(prev.getFullYear(), prev.getMonth() + 1, 1);
-      return nextMonth;
-    });
-  }, []);
+  // function to go back a month
+  const prevMonth = () => {
+    setIsFlipping(true);
+    setTimeout(() => {
+      setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1, 1));
+      setIsFlipping(false);
+    }, 250); // match animation duration
+  };
+
+  // function to go to next month
+  const nextMonth = () => {
+    setIsFlipping(true);
+    setTimeout(() => {
+      setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1, 1));
+      setIsFlipping(false);
+    }, 250);
+  };
   
-  const resetRange = useCallback(() => {
+  // clear everything
+  const resetRange = () => {
     setStartDate(null);
     setEndDate(null);
     setHoverDate(null);
-  }, []);
+  };
 
-  const handleDateClick = useCallback((date) => {
+  // clicking a date block logic
+  const handleDateClick = (date) => {
+    // console.log("clicked date: ", date)
     if (!startDate || (startDate && endDate)) {
-      // Start fresh
       setStartDate(date);
       setEndDate(null);
     } else if (startDate && !endDate) {
-      // If clicking a date before start date, swap or just prevent?
-      // Let's swap
+      // user clicked a past date, so swap them
       if (date < startDate) {
         setEndDate(startDate);
         setStartDate(date);
@@ -45,25 +54,27 @@ export function useCalendarLogic() {
         setEndDate(date);
       }
     }
-  }, [startDate, endDate]);
+  };
 
-  const handleDateHover = useCallback((date) => {
+  // hover logic 
+  const handleDateHover = (date) => {
     if (startDate && !endDate) {
       setHoverDate(date);
     } else {
       setHoverDate(null);
     }
-  }, [startDate, endDate]);
+  };
 
-  return {
-    currentDate,
-    prevMonth,
-    nextMonth,
-    startDate,
-    endDate,
-    hoverDate,
-    handleDateClick,
-    handleDateHover,
+  return { 
+    currentDate, 
+    prevMonth, 
+    nextMonth, 
+    startDate, 
+    endDate, 
+    hoverDate, 
+    handleDateClick, 
+    handleDateHover, 
     resetRange,
+    isFlipping 
   };
 }

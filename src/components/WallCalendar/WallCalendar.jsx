@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import styles from './WallCalendar.module.css';
 
 import { useCalendarLogic } from '../../hooks/useCalendarLogic';
@@ -11,21 +11,22 @@ import { CalendarGrid } from '../CalendarGrid/CalendarGrid';
 import { RangeSummary } from '../RangeSummary/RangeSummary';
 
 export function WallCalendar() {
+  // getting all the data from my custom hook
   const {
-    currentDate, prevMonth, nextMonth, startDate, endDate, hoverDate, handleDateClick, handleDateHover, resetRange
+    currentDate, prevMonth, nextMonth, startDate, endDate, hoverDate, handleDateClick, handleDateHover, resetRange, isFlipping
   } = useCalendarLogic();
 
-  const monthKey = `${getYear(currentDate)}-${currentDate.getMonth()}`;
+  // dynamic key so notes save per month
+  let monthKey = `${getYear(currentDate)}-${currentDate.getMonth()}`;
   const [notes, setNotes] = useLocalStorage(`calendar-notes-${monthKey}`, "");
 
-  const calendarDays = useMemo(() => {
-    return generateCalendarDates(currentDate.getFullYear(), currentDate.getMonth());
-  }, [currentDate]);
+  // no need for useMemo here, it's fast enough!
+  let calendarDays = generateCalendarDates(currentDate.getFullYear(), currentDate.getMonth());
 
   return (
     <div className={styles.wallCalendar}>
       
-      {/* Physical Bindings */}
+      {/* this part is for the physical spiral bindings */}
       <div className={styles.hangingHook}></div>
       <div className={styles.bindingContainer}>
         {Array.from({ length: 30 }).map((_, i) => (
@@ -35,7 +36,8 @@ export function WallCalendar() {
 
       <HeroSection date={currentDate} />
 
-      <div className={styles.calendarBody}>
+      <div className={`${styles.calendarBody} ${isFlipping ? styles.flipAnimation : ''}`}>
+        {/* passing notes down */}
         <NotesSection notes={notes} onChange={(e) => setNotes(e.target.value)} />
         
         <CalendarGrid 
@@ -51,6 +53,7 @@ export function WallCalendar() {
         />
       </div>
 
+      {/* only show summary when user selects a range */}
       {startDate && (
         <RangeSummary startDate={startDate} endDate={endDate} onReset={resetRange} />
       )}

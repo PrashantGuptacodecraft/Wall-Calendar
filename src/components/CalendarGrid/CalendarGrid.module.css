@@ -114,3 +114,12 @@
 .isSelected .dateCellBtn:hover {
   background-color: var(--accent-color);
 }
+
+/* Extra Feature: Holiday Markers! */
+.holidayIcon {
+  position: absolute;
+  bottom: 0px;
+  right: -5px;
+  font-size: 14px;
+  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.2));
+}

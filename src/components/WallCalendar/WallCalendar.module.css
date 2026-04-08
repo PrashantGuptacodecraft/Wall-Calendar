@@ -79,3 +79,14 @@
     padding: 1.5rem;
   }
 }
+
+/* Extra Feature: Flip Animation! */
+.flipAnimation {
+  animation: flipDown 0.25s ease-in-out;
+}
+
+@keyframes flipDown {
+  0% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0); opacity: 0; }
+  100% { transform: scaleY(1); opacity: 1; }
+}

@@ -1,16 +1,65 @@
-# React + Vite
+# Wall Calendar Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A polished, interactive wall calendar web application inspired by a physical hanging calendar.  
+This project was built as a **frontend assignment** using **React + Vite** with a focus on UI quality, responsiveness, and clean component structure.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Premium **wall calendar aesthetic**
+- Large **hero image** section inspired by a printed calendar
+- **Month navigation** for previous and next months
+- **Date range selection**
+  - select start date
+  - select end date
+  - highlight dates in between
+- Integrated **Notes & Goals** section
+- **localStorage persistence** for notes and selected range
+- **Responsive design** for desktop and mobile
+- Smooth visual states for:
+  - today
+  - weekends
+  - selected dates
+  - selected range
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- JavaScript
+- CSS / CSS Modules
+- localStorage
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+src/
+├── components/
+│   ├── WallCalendar/
+│   ├── HeroSection/
+│   ├── NotesSection/
+│   ├── CalendarGrid/
+│   └── RangeSummary/
+├── hooks/
+│   ├── useCalendarLogic.js
+│   └── useLocalStorage.js
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+## How to Run Locally
+
+1. **Navigate to the project folder:**
+   ```bash
+   cd calender
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+4. **Open in Browser:**
+   Click the local URL provided in your terminal (usually `http://localhost:5173/`).
